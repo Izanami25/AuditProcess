@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,9 @@ import java.util.List;
 public class AuditController {
     @Autowired
     AuditRepository auditRepository;
+
+
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "false")
     @GetMapping("/get-audit")
     public List<Audit> GetAudit(){
         List<Audit> result = new ArrayList<>();
@@ -42,6 +46,7 @@ public class AuditController {
         return result;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials = "false")
     @PostMapping("/upload-audit-excel")
     public List<Audit> importExcelFile(@RequestParam("file") MultipartFile files)throws IOException {
         List<Audit> audits = new ArrayList<>();
